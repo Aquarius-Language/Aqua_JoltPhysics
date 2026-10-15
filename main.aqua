@@ -1,0 +1,11 @@
+變數 動態 = 匯入("DynamicLibrary");
+變數 JSON = 匯入("Serialization");
+變數 核心 = 動態.Load(目前工作目錄 + "/assets/jolt.mjs");
+變數 Backend = "Jolt Physics";
+變數 MaxBodies = 4096;
+變數 建立世界, CreateWorld = 函式(重力) {
+    變數 id = JSON.ParseJson(核心.Call("dispatch", JSON.Json([0, "CreateWorld", [重力]])));
+    變數 世界 = 匯入(目前工作目錄 + "/world.aqua");
+    世界.Initialize(核心, id);
+    回傳 世界;
+};

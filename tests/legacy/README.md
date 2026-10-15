@@ -1,0 +1,1 @@
+Historical C# adapter tests preserved during extraction. These depend on the retired built-in Jolt adapter and are reference material. Executable regression tests are the adjacent *.test.mjs suites and tests/smoke.aqua.

@@ -1,0 +1,14 @@
+manifest_version = 1
+[project]
+name = "Aqua_JoltPhysics"
+type = "library"
+version = "1.0.0"
+entry = "main.aqua"
+sources = ["main.aqua", "world.aqua"]
+platforms = ["windows", "linux", "macos", "web", "android"]
+license = "MIT"
+description = "Jolt Physics 0.24.0 with owned worlds, spheres, boxes and continuous collisions."
+[[assets]]
+source = "assets/jolt.mjs"
+[[assets]]
+source = "assets/vendor-jolt.LICENSE.txt"
