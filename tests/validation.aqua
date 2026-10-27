@@ -1,0 +1,33 @@
+var physics=import("JoltPhysics");
+var network=import("Network");
+var world=physics.CreateWorld([0,0,0]);
+var other=physics.CreateWorld([0,0,0]);
+var failures=0;
+var checks=0;
+var rejects=function(callback){
+    checks+=1;
+    var result=network.Try(callback);
+    if(result.Success){failures+=1;print("Jolt validation unexpectedly accepted",checks);}
+};
+var invalidMass=[-1,0.0000001d,0.000999999d,1000001,"0",[][0]];
+for(var i=0;i<len(invalidMass);i++){var value=invalidMass[i];rejects(function(){world.CreateSphere(1,[0,0,0],value);});}
+var invalidSize=[0,0.00001d,-1,10001,"0",[][0]];
+for(var i=0;i<len(invalidSize);i++){var value=invalidSize[i];rejects(function(){world.CreateSphere(value,[0,0,0],1);});}
+rejects(function(){world.CreateSphere(1,[0,0],1);});
+rejects(function(){world.SetGravity([0,0,1000001]);});
+var body=world.CreateSphere(1,[0,0,0],0.001d);
+var floor=world.CreateBox([1,1,1],[0,-5,0],0);
+rejects(function(){other.GetPosition(body);});
+rejects(function(){world.AddImpulse(floor,[1,0,0]);});
+rejects(function(){world.SetRotation(body,[0,0,0,0]);});
+rejects(function(){world.SetFriction(body,1.1d);});
+rejects(function(){world.Step(0,1);});
+rejects(function(){world.Step(1,1.5d);});
+rejects(function(){world.Step(1,129);});
+world.RemoveBody(body);
+rejects(function(){world.GetPosition(body);});
+world.Dispose();world.Dispose();
+rejects(function(){world.GetGravity();});
+other.Dispose();
+print("Jolt validation checks",checks,"failures",failures);
+if(failures==0){print("JOLT_VALIDATION_OK");}else{JOLT_VALIDATION_FAILED;}
