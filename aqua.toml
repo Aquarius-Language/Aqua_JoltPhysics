@@ -2,7 +2,7 @@ manifest_version = 2
 [library]
 name = "Aqua_JoltPhysics"
 version = "2.0.0"
-platforms = ["windows", "linux", "web", "android"]
+platforms = ["windows", "linux", "macos", "web", "android"]
 license = "MIT"
 [native]
 name = "jolt"
